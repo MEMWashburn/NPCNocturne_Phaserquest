@@ -25,7 +25,7 @@ Home.preload = function(){
     game.load.json('db', 'assets/json/db.json');
 
     // https://phaser.io/examples/v2/audio/play-music
-    game.load.audio('intro', ['assets/music/phaser-quest-intro.ogg']);
+    // game.load.audio('intro', ['assets/music/phaser-quest-intro.ogg']);
 };
 
 Home.create = function(){
@@ -38,8 +38,8 @@ Home.create = function(){
     if(!Game.isNewPlayer) Home.makeResetScroll();
     Home.displayHomeScroll();
     Home.displayLogo();
-    Home.music = game.add.audio('intro');
-    Home.music.play();
+    // Home.music = game.add.audio('intro');
+    // Home.music.play();
     document.onkeydown = Home.handleKeyPress;
 };
 

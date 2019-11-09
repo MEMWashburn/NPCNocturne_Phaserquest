@@ -56,6 +56,7 @@ Game.preload = function() {
     game.load.spritesheet('life', 'assets/sprites/lifelvl.png',5,18); // tilesprite used to make lifebar
     game.load.audio('sounds','assets/audio/sounds.mp3','assets/audio/sounds.ogg'); // audio sprite of all sound effects
     game.load.json('entities', 'assets/json/entities_client.json'); // Basically a list of the NPC, mapping their id to the key used in other JSON files
+    // game.load.audio('gen-test', ['assets/music/gen-test.ogg']);
 };
 
 // Makes a map mapping the numerical id's of elements of a collection to their names (their names being the keys used to fetch relevant data from JSON files)
@@ -93,6 +94,10 @@ Game.create = function() {
     Game.createMarker(); // Creates the marker following the pointer that highlight tiles
     Game.makeHPtexts(); // Creates a pool of text elements to use to display HP
     Game.addSounds(); // Add the sounds of the game to some global object
+
+    // Start music on game display
+    // Game.music = game.add.audio('gen-test');
+    // Game.music.play();
 
     // Factories used to fecth unused sprites before creating new ones (or creating new ones when no other available)
     Game.playerFactory = new Factory(function(x,y,key){
