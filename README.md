@@ -1,4 +1,4 @@
-# phaserquest
+# NPC Nocturne in Phaserquest
 
 Phaser Quest is a reproduction of Mozilla's [Browserquest](http://browserquest.mozilla.org/) using the following tools:
 - The [Phaser](https://phaser.io/) framework for the client 
