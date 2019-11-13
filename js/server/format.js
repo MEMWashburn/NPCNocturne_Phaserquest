@@ -57,7 +57,7 @@ function formatMap(){
         for(var i= 0; i < map.layers.length; i++) { // Scan all layers of the original map one by one
             var layer = map.layers[i];
             if (layer.type === "tilelayer") {
-                //console.log('processing ' + layer.name);
+                console.log('processing ' + layer.name);
                 for (var j = 0; j < layer.data.length; j++) { // Scan all tiles one by one
                     var tileProperties = map.tilesets[0].tileproperties[layer.data[j]-1];
                     if(tileProperties && tileProperties.hasOwnProperty('v')){ // The original Browserquest map uses the property 'v' to indicate tiles that should be displayed above the player
@@ -66,7 +66,7 @@ function formatMap(){
                         addTile(newLayers,false,j,layer.data[j],map.width,map.height);
                     }
                 }
-                //console.log('done with layer ' + layer.name);
+                console.log('done with layer ' + layer.name);
             } else if (layer.type === "objectgroup") {
                 if(layer.name == 'doors' || layer.name == 'entities') { // Only store doors and entities objects in client map
                     if(layer.name == 'entities'){
@@ -168,7 +168,6 @@ function filterEntities(layer){ // Filters out game entities that don't need to 
     var nbAOI = nbAOIhoriz*nbAOIvert;
     var lastID = nbAOI-1;
     lastID = 2;
-
     for(var aoi = 0; aoi <= lastID; aoi++){
         var subMap = clone(map);
         var x = (aoi%nbAOIhoriz)*AOIwidth;
@@ -199,5 +198,6 @@ function filterEntities(layer){ // Filters out game entities that don't need to 
     }
 }*/
 
-module.exports.format = formatMap;
+formatMap();
 
+module.exports.format = formatMap;

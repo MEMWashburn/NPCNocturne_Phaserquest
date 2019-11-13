@@ -5,6 +5,7 @@
  */
 
 "use strict";
+
 var Game = {
     borderPadding: 10, // size of the gray border of the game window
     HUDheight: 32, // height of the HUD bar at the bottom (with life etc.)
@@ -98,6 +99,7 @@ Game.create = function() {
     // Start music on game display
     // Game.music = game.add.audio('gen-test');
     // Game.music.play();
+    window.MGS.playSong(window.c);
 
     // Factories used to fecth unused sprites before creating new ones (or creating new ones when no other available)
     Game.playerFactory = new Factory(function(x,y,key){

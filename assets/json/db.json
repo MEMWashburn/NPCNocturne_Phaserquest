@@ -2,7 +2,8 @@
   "achievements":{
     "0":{
       "name":"A True Warrior",
-      "desc":"Find a new weapon",
+      "desc":"Defeat all 4 major bosses",
+      "nb": 1,
       "token": 0
     },
     "1":{
@@ -11,7 +12,7 @@
       "locationAchievement": true,
       "criterion":"out",
       "rect": {"x":0,"y":192,"w":83,"h":64},
-      "token":1
+      "token": 1
     },
     "2":{
       "name":"Angry Rats",
@@ -31,25 +32,21 @@
     },
     "5":{
       "name":"Bones Collector",
-      "desc":"Kill 10 skeletons",
-      "nb": 10,
+      "desc":"Kill the graveyard boss",
+      "nb": 1,
       "token": 9
     },
     "6":{
       "name":"At World's End",
-      "desc":"Reach the south shore",
-      "token": 6,
-      "locationAchievement": true,
-      "criterion":"in",
-      "rect": {"x":0,"y":290,"w":84,"h":10}
+      "desc":"Kill the beach boss",
+      "nb": 1,
+      "token": 6
     },
     "7":{
       "name":"Tomb Raider",
-      "desc":"Find the graveyard",
-      "token": 8,
-      "locationAchievement": true,
-      "criterion":"in",
-      "rect": {"x":11,"y":113,"w":26,"h":15}
+      "desc":"Kill the dunes boss",
+      "nb": 1,
+      "token": 8
     }
   },
   "items":{

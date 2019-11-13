@@ -15,10 +15,18 @@ const comp = new Composition(
     seed
 );
 
+(window as any).BitString = BitString;
 (window as any).Comp = Composition;
 (window as any).MGS = MGS;
 (window as any).c = comp;
 
-window.onload = function() {
-    MGS.playSong(comp);
-}
+// window.onload = function() {
+//     var context = new AudioContext();
+//     // One-liner to resume playback when user interacted with the page.
+//     document.querySelector('button').addEventListener('click', function() {
+//         context.resume().then(() => {
+//         console.log('Playback resumed successfully');
+//         });
+//     });
+//     MGS.playSong(comp);
+// }

@@ -1,6 +1,12 @@
 <html>
     <body>
-
+        <h1 id="myHeader">Click below for music!</h1>
+        <button onclick="myFunction()">Click me I make music</button>
     </body>
     <script src="thing.js"></script>
+    <script>
+        function myFunction() {
+            document.getElementById("myHeader").innerHTML = "Enjoy!";
+        }
+    </script>
 </html>
