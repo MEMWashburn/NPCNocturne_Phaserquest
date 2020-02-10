@@ -6,7 +6,8 @@ module.exports = {
     // entry: path.join(__dirname, 'js/client/music-builder/music-generator.service.ts'),
     output: {
         filename: 'thing.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'js')
+        // path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [

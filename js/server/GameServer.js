@@ -6,6 +6,8 @@ var fs = require('fs');
 var PF = require('pathfinding');
 var clone = require('clone'); // used to clone objects, essentially used for clonick update packets
 var rwc = require('random-weighted-choice'); // used to randomly decide which loot a monster should drop
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 
 var GameServer = {
     map: null, // object containing all the data about the world map
@@ -397,11 +399,20 @@ GameServer.removeFromLocation = function(entity){
 
 GameServer.determineStartingPosition = function(){
     // Determine where a new player should appear for the first time in the game
-    var checkpoints = GameServer.objects.checkpoints;
-    var startArea = checkpoints[Math.floor(Math.random()*checkpoints.length)];
-    var x = randomInt(startArea.x, (startArea.x+startArea.width));
-    var y = randomInt(startArea.y, (startArea.y+startArea.height));
-    return {x:Math.floor(x/GameServer.map.tilewidth),y:Math.floor(y/GameServer.map.tileheight)};
+    if (localStorage.getItem('ach0') && localStorage.getItem('ach5') && localStorage.getItem('ach6') && localStorage.getItem('ach7')) {
+        // endScenario: Objects in Tiled Map (map.json)
+        var endScenario = GameServer.objects.endScenario;
+        var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
+        var x = randomInt(endArea.x, (endArea.x+endArea.width));
+        var y = randomInt(endArea.y, (endArea.y+endArea.height));
+        return {x:Math.floor(x/GameServer.map.tilewidth),y:Math.floor(y/GameServer.map.tileheight)};
+    } else {
+        var checkpoints = GameServer.objects.checkpoints;
+        var startArea = checkpoints[Math.floor(Math.random()*checkpoints.length)];
+        var x = randomInt(startArea.x, (startArea.x+startArea.width));
+        var y = randomInt(startArea.y, (startArea.y+startArea.height));
+        return {x:Math.floor(x/GameServer.map.tilewidth),y:Math.floor(y/GameServer.map.tileheight)};
+    }
 };
 
 GameServer.computeTileCoords = function(x,y){ // Convert pixel coordinates to tile coordinates

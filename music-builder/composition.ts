@@ -180,13 +180,13 @@ export class Composition {
 
   private decideTimeSig(): TimeSignature {
     const bpmChoice = Math.floor(this.arousal * _bpms.length);
-    const num = 4;
+    var num = 4;
     const denom = 4;
 
     // Setting to 3/4 for "waltz" feel
-    // if (this.valence > 0.5) {
-    //   num = 3;
-    // }
+    if (this.valence > 0.5) {
+      num = 3;
+    }
 
     return {
       bpm: _bpms[bpmChoice],

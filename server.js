@@ -39,6 +39,8 @@ var Encoder = require('./js/server/Encoder.js').Encoder;
 
 server.enableBinary = true;
 gs.server = server;
+// // Always format map or else breaks if minimaps not present
+// mapFormat;
 
 app.use('/css',express.static(__dirname + '/css'));
 app.use('/js',express.static(__dirname + '/js'));

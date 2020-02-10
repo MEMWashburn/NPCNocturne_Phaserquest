@@ -79,6 +79,7 @@ Game.create = function() {
     Game.npcInfo = Game.db.npc;
     Game.monstersInfo = Game.db.monsters;
     Game.findLocationAchievements(); // Scan the list of location-based achievements and store them somewhere
+    Game.findBossLocations();
 
     // A few maps mapping numerical id's to string keys
     Game.itemsIDmap = {};
@@ -327,6 +328,27 @@ Game.updateMonsterAction = function(monster,info){ // info contains the updated 
         monster.fight();
     }
 };
+
+Game.updateBossMusic = function(monster, info) {
+    window.MGS.playSong(window.c);
+    var pos = Game.computeTileCoords(Game.player.x,Game.player.y);
+    for(var i = Game.bossLocations.length-1; i >= 0 ; i--) {
+        var area = Game.bossLocations[i];
+        if((area.criterion == "in" && area.contains(pos.x,pos.y)) || (area.criterion == "out" && !area.contains(pos.x,pos.y))){
+            switch (i) {
+                case 0: window.MGS.playSong(window.grasslandsComp);
+                    break;
+                case 1: window.MGS.playSong(window.desertComp);
+                    break;
+                case 2: window.MGS.playSong(window.finalComp);
+                    break;
+                case 3: window.MGS.playSong(window.graveyardComp);
+                    break;
+                default:window.MGS.playSong(window.c);
+            }
+        }
+    }
+}
 
 Game.updateItem = function(item,info){ // info contains the updated data from the server
     if(info.visible == false && item.alive == true) {
@@ -779,7 +801,7 @@ Game.handleKillAchievement = function(id){ // monster id
 Game.handleLocationAchievements = function(){
     if(Game.inDoor || !Game.locationAchievements.length) return;
     var pos = Game.computeTileCoords(Game.player.x,Game.player.y);
-    for(var i = Game.locationAchievements.length-1; i >= 0 ; i--){
+    for(var i = Game.locationAchievements.length-1; i >= 0 ; i--) {
         var area = Game.locationAchievements[i];
         if((area.criterion == "in" && area.contains(pos.x,pos.y)) || (area.criterion == "out" && !area.contains(pos.x,pos.y))){
             Game.getAchievement(area.achID);
@@ -811,6 +833,19 @@ Game.findLocationAchievements = function(){
             area.criterion = ach.criterion;
             area.achID = achID;
             Game.locationAchievements.push(area);
+        }
+    });
+};
+
+Game.findBossLocations = function(){
+    Game.bossLocations = [];
+    Object.keys(Game.db.monsters).forEach(function(monID){
+        var mon = Game.db.monsters[monID];
+        if(mon.isachievement) {
+            var area = new Phaser.Rectangle(mon.rect.x,mon.rect.y,mon.rect.w,mon.rect.h);
+            area.criterion = mon.criterion;
+            area.monID = monID;
+            Game.bossLocations.push(area);
         }
     });
 };

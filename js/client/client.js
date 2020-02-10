@@ -59,6 +59,7 @@ Client.getPlayerID = function(){
 };
 
 Client.hasAchievement = function(id){
+    console.log('ach'+id + ' ' + localStorage.getItem('ach'+id));
     return (localStorage.getItem('ach'+id)? true : false);
 };
 
