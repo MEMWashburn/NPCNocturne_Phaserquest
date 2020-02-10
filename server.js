@@ -46,7 +46,6 @@ app.use('/css',express.static(__dirname + '/css'));
 app.use('/js',express.static(__dirname + '/js'));
 app.use('/assets',express.static(__dirname + '/assets'));
 
-
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');
 });
@@ -147,6 +146,12 @@ io.on('connection',function(socket){
     socket.on('disconnect',function(){
         console.log('Disconnection with ID '+socket.id);
         if(gs.getPlayer(socket.id)) gs.removePlayer(socket.id);
+    });
+
+    socket.on('MEGAachievement',function(data){
+        // console.log(data);
+        gs.megaAchievements = data;
+        console.log(gs.megaAchievements);
     });
 });
 

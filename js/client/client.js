@@ -59,7 +59,8 @@ Client.getPlayerID = function(){
 };
 
 Client.hasAchievement = function(id){
-    console.log('ach'+id + ' ' + localStorage.getItem('ach'+id));
+    console.log('client: ach'+id + ' ' + localStorage.getItem('ach'+id));
+    Client.megaAchievementSend();
     return (localStorage.getItem('ach'+id)? true : false);
 };
 
@@ -158,4 +159,14 @@ Client.deletePlayer = function(){
     // Signal the server that the player wants to delete his character
     Client.socket.emit('delete',{id:Client.getPlayerID()});
     localStorage.clear();
+};
+
+Client.megaAchievementSend = function(){
+    let achInfo = {
+        ach0: localStorage.getItem('ach0'),
+        ach5: localStorage.getItem('ach5'),
+        ach6: localStorage.getItem('ach6'),
+        ach7: localStorage.getItem('ach7')
+    };
+    Client.socket.emit('MEGAachievement', achInfo);
 };

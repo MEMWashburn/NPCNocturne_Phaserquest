@@ -6,8 +6,6 @@ var fs = require('fs');
 var PF = require('pathfinding');
 var clone = require('clone'); // used to clone objects, essentially used for clonick update packets
 var rwc = require('random-weighted-choice'); // used to randomly decide which loot a monster should drop
-var LocalStorage = require('node-localstorage').LocalStorage,
-localStorage = new LocalStorage('./scratch');
 
 var GameServer = {
     map: null, // object containing all the data about the world map
@@ -32,7 +30,8 @@ var GameServer = {
     nbConnectedChanged: false, // has the number of connected players changed since last update packet or not
     players: {}, // map of all connected players, fetchable by id
     socketMap: {}, // map of socket id's to the player id's of the associated players
-    IDmap: {} // map of player id's to their mondo db uid's
+    IDmap: {}, // map of player id's to their mondo db uid's
+    megaAchievements: {}
 };
 
 module.exports.GameServer = GameServer;
@@ -399,7 +398,7 @@ GameServer.removeFromLocation = function(entity){
 
 GameServer.determineStartingPosition = function(){
     // Determine where a new player should appear for the first time in the game
-    if (localStorage.getItem('ach0') && localStorage.getItem('ach5') && localStorage.getItem('ach6') && localStorage.getItem('ach7')) {
+    if (this.megaAchievements.ach0 && this.megaAchievements.ach5 && this.megaAchievements.ach6 && this.megaAchievements.ach7) {
         // endScenario: Objects in Tiled Map (map.json)
         var endScenario = GameServer.objects.endScenario;
         var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
