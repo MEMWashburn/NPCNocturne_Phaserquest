@@ -398,20 +398,20 @@ GameServer.removeFromLocation = function(entity){
 
 GameServer.determineStartingPosition = function(){
     // Determine where a new player should appear for the first time in the game
-    if (this.megaAchievements.ach0 && this.megaAchievements.ach5 && this.megaAchievements.ach6 && this.megaAchievements.ach7) {
-        // endScenario: Objects in Tiled Map (map.json)
-        var endScenario = GameServer.objects.endScenario;
-        var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
-        var x = randomInt(endArea.x, (endArea.x+endArea.width));
-        var y = randomInt(endArea.y, (endArea.y+endArea.height));
-        return {x:Math.floor(x/GameServer.map.tilewidth),y:Math.floor(y/GameServer.map.tileheight)};
-    } else {
+    // if (this.megaAchievements.ach0 && this.megaAchievements.ach5 && this.megaAchievements.ach6 && this.megaAchievements.ach7) {
+    //     // endScenario: Objects in Tiled Map (map.json)
+    //     var endScenario = GameServer.objects.endScenario;
+    //     var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
+    //     var x = randomInt(endArea.x, (endArea.x+endArea.width));
+    //     var y = randomInt(endArea.y, (endArea.y+endArea.height));
+    //     return {x:Math.floor(x/GameServer.map.tilewidth),y:Math.floor(y/GameServer.map.tileheight)};
+    // } else {
         var checkpoints = GameServer.objects.checkpoints;
         var startArea = checkpoints[Math.floor(Math.random()*checkpoints.length)];
         var x = randomInt(startArea.x, (startArea.x+startArea.width));
         var y = randomInt(startArea.y, (startArea.y+startArea.height));
         return {x:Math.floor(x/GameServer.map.tilewidth),y:Math.floor(y/GameServer.map.tileheight)};
-    }
+    // }
 };
 
 GameServer.computeTileCoords = function(x,y){ // Convert pixel coordinates to tile coordinates

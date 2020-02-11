@@ -123,6 +123,25 @@ io.on('connection',function(socket){
     });
 
     socket.on('revive',function(){
+        console.log("Reviving player...");
+        if (gs.megaAchievements) {
+            console.log(gs.megaAchievements);
+            if (gs.megaAchievements.ach0 && gs.megaAchievements.ach5 && gs.megaAchievements.ach6 && gs.megaAchievements.ach7) {
+                Object.keys(gs.players).forEach(function(key) {
+                    var player = gs.players[key];
+                    console.log(player.x + ' ' + player.y);
+                    var endScenario = gs.objects.endScenario;
+                    var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
+                    var x = randomInt(endArea.x, (endArea.x+endArea.width));
+                    var y = randomInt(endArea.y, (endArea.y+endArea.height));
+                    gs.players[key].x = Math.floor(x/gs.map.tilewidth);
+                    gs.players[key].y = Math.floor(y/gs.map.tileheight);
+                    console.log(gs.players[key].x + ' ' + gs.players[key].y);
+                    // TODO: Write new function to change position of player (in GameServer?)
+                });;
+            }
+        }
+        // Original code
         gs.revivePlayer(gs.getPlayerID(socket.id));
     });
 
@@ -151,7 +170,7 @@ io.on('connection',function(socket){
     socket.on('MEGAachievement',function(data){
         // console.log(data);
         gs.megaAchievements = data;
-        console.log(gs.megaAchievements);
+        // console.log(gs.megaAchievements);
     });
 });
 
@@ -218,3 +237,10 @@ server.quickMedian = function(arr){ // Compute the median of an array using the 
     quickselect(arr,n);
     return arr[n];
 };
+
+// =============================
+// Miscellaneous
+
+function randomInt (low, high) {
+    return Math.floor(Math.random() * (high - low) + low);
+}
