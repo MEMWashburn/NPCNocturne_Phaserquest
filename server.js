@@ -124,25 +124,25 @@ io.on('connection',function(socket){
 
     socket.on('revive',function(){
         console.log("Reviving player...");
+        let playerID = gs.getPlayerID(socket.id);
+        // New
         if (gs.megaAchievements) {
             console.log(gs.megaAchievements);
             if (gs.megaAchievements.ach0 && gs.megaAchievements.ach5 && gs.megaAchievements.ach6 && gs.megaAchievements.ach7) {
-                Object.keys(gs.players).forEach(function(key) {
-                    var player = gs.players[key];
-                    console.log(player.x + ' ' + player.y);
-                    var endScenario = gs.objects.endScenario;
-                    var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
-                    var x = randomInt(endArea.x, (endArea.x+endArea.width));
-                    var y = randomInt(endArea.y, (endArea.y+endArea.height));
-                    gs.players[key].x = Math.floor(x/gs.map.tilewidth);
-                    gs.players[key].y = Math.floor(y/gs.map.tileheight);
-                    console.log(gs.players[key].x + ' ' + gs.players[key].y);
-                    // TODO: Write new function to change position of player (in GameServer?)
-                });;
+                var player = gs.players[playerID];
+                console.log(player.x + ' ' + player.y);
+                var endScenario = gs.objects.endScenario;
+                var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
+                var x = randomInt(endArea.x, (endArea.x+endArea.width));
+                var y = randomInt(endArea.y, (endArea.y+endArea.height));
+                gs.players[playerID].x = Math.floor(x/gs.map.tilewidth);
+                gs.players[playerID].y = Math.floor(y/gs.map.tileheight);
+                console.log(gs.players[playerID].x + ' ' + gs.players[playerID].y);
+                // TODO: Write new function to change position of player (in GameServer?)
             }
         }
-        // Original code
-        gs.revivePlayer(gs.getPlayerID(socket.id));
+        // Original code, semi-modified
+        gs.revivePlayer(playerID);
     });
 
     socket.on('path',function(data){

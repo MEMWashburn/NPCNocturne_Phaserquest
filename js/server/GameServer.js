@@ -347,6 +347,8 @@ GameServer.removePlayer = function(socketID){
 
 GameServer.revivePlayer = function(playerID){
     var player = GameServer.players[playerID];
+    console.log('revivePlayer x: ' + player.x + ', y: ' + player.y);
+    // TODO: Why is player not reviving in new x, y coordinate as assigned in server.js:138-139 ?
     if(player) player.revive();
 };
 
