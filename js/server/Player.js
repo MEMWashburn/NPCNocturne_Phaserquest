@@ -162,6 +162,13 @@ Player.prototype.teleport = function(door){
     this.endFight();
 };
 
+Player.prototype.megaTeleport = function(toX, toY){
+    this.x = toX;
+    this.y = toY;
+    this.manageFoes();
+    this.endFight();
+};
+
 Player.prototype.revive = function(){
     if(this.alive) return;
     this.life = this.maxLife;

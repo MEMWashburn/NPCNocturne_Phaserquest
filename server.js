@@ -130,19 +130,20 @@ io.on('connection',function(socket){
             console.log(gs.megaAchievements);
             if (gs.megaAchievements.ach0 && gs.megaAchievements.ach5 && gs.megaAchievements.ach6 && gs.megaAchievements.ach7) {
                 var player = gs.players[playerID];
-                console.log(player.x + ' ' + player.y);
+                console.log('Socket revive OLD: ' + player.x + ' ' + player.y);
                 var endScenario = gs.objects.endScenario;
                 var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
                 var x = randomInt(endArea.x, (endArea.x+endArea.width));
                 var y = randomInt(endArea.y, (endArea.y+endArea.height));
                 gs.players[playerID].x = Math.floor(x/gs.map.tilewidth);
                 gs.players[playerID].y = Math.floor(y/gs.map.tileheight);
-                console.log(gs.players[playerID].x + ' ' + gs.players[playerID].y);
-                // TODO: Write new function to change position of player (in GameServer?)
+                console.log('Socket revive NEW: ' + gs.players[playerID].x + ' ' + gs.players[playerID].y);
+                // Send new coordinates to client
+
             }
         }
         // Original code, semi-modified
-        gs.revivePlayer(playerID);
+        gs.revivePlayer(socket, playerID);
     });
 
     socket.on('path',function(data){
@@ -237,6 +238,12 @@ server.quickMedian = function(arr){ // Compute the median of an array using the 
     quickselect(arr,n);
     return arr[n];
 };
+
+server.megaSendEndCoordinates = function(socket, x, y) {
+    let coords = {x, y};
+    socket.emit('megaEndCoordinates', coords);
+    console.log('Emitted megaEndCoordinates from server.js');
+}
 
 // =============================
 // Miscellaneous

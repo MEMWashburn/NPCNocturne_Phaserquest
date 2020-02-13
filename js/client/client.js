@@ -135,6 +135,12 @@ Client.socket.on('chat',function(data){
     Game.playerSays(data.id,data.txt);
 });
 
+Client.socket.on('megaEndCoordinates', function(coords) {
+    console.log('megaEndCoordinates' + JSON.stringify(coords));
+    Being.newX = coords[0];
+    Being.newY = coords[1];
+});
+
 Client.sendPath = function(path,action,finalOrientation){
     // Send the path that the player intends to travel
     Client.socket.emit('path',{

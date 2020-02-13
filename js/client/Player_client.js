@@ -148,6 +148,20 @@ Player.prototype.teleport = function(){
     return null;
 };
 
+Player.prototype.megaTeleport = function(toX, toY){
+    this.position.set(toX, toY);
+    if(this.isPlayer) {
+        Game.followPlayer();
+    }
+    var orientationMap = {
+        l: 1,
+        u: 2,
+        r: 3,
+        d: 4
+    };
+    return orientationMap[1];
+};
+
 Player.prototype.fight = function(){
     // Sets the player in "fight mode", and start a tween that calls fightAction() regularly in order to display the attack animations
     if(!this.target) return;
