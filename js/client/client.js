@@ -59,7 +59,7 @@ Client.getPlayerID = function(){
 };
 
 Client.hasAchievement = function(id){
-    console.log('client: ach'+id + ' ' + localStorage.getItem('ach'+id));
+    // console.log('client: ach'+id + ' ' + localStorage.getItem('ach'+id));
     Client.megaAchievementSend();
     return (localStorage.getItem('ach'+id)? true : false);
 };

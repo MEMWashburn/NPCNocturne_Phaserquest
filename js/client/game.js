@@ -101,6 +101,7 @@ Game.create = function() {
     // Game.music = game.add.audio('gen-test');
     // Game.music.play();
     window.MGS.playSong(window.c);
+    window.currentSong = window.c;
 
     // Factories used to fecth unused sprites before creating new ones (or creating new ones when no other available)
     Game.playerFactory = new Factory(function(x,y,key){
@@ -159,6 +160,9 @@ Game.updateWorld = function(data) { // data is the update package from the serve
     // "Action" updates
     if(data.players) Game.traverseUpdateObject(data.players,Game.charactersPool,Game.updatePlayerAction);
     if(data.monsters) Game.traverseUpdateObject(data.monsters,Game.monstersTable,Game.updateMonsterAction);
+
+    // Update music
+    Game.updateBossMusic();
 };
 // For each element in arr, call the callback on it and store the result in the map 'table'
 Game.populateTable = function(table,arr,callback){
@@ -329,27 +333,6 @@ Game.updateMonsterAction = function(monster,info){ // info contains the updated 
     }
 };
 
-Game.updateBossMusic = function(monster, info) {
-    window.MGS.playSong(window.c);
-    var pos = Game.computeTileCoords(Game.player.x,Game.player.y);
-    for(var i = Game.bossLocations.length-1; i >= 0 ; i--) {
-        var area = Game.bossLocations[i];
-        if((area.criterion == "in" && area.contains(pos.x,pos.y)) || (area.criterion == "out" && !area.contains(pos.x,pos.y))){
-            switch (i) {
-                case 0: window.MGS.playSong(window.grasslandsComp);
-                    break;
-                case 1: window.MGS.playSong(window.desertComp);
-                    break;
-                case 2: window.MGS.playSong(window.finalComp);
-                    break;
-                case 3: window.MGS.playSong(window.graveyardComp);
-                    break;
-                default:window.MGS.playSong(window.c);
-            }
-        }
-    }
-}
-
 Game.updateItem = function(item,info){ // info contains the updated data from the server
     if(info.visible == false && item.alive == true) {
         item.remove();
@@ -406,6 +389,53 @@ Game.updateSelf = function(data){
         Game.sounds.play('noloot');
     }
 };
+
+Game.updateBossMusic = function() {
+    // window.MGS.playSong(window.c);
+    let player = Game.player;
+    var pos = Game.computeTileCoords(player.x,player.y);
+    for(var i = Game.bossLocations.length-1; i >= 0 ; i--) {
+        var area = Game.bossLocations[i];
+        if((area.criterion == "in" && area.contains(pos.x,pos.y)) || (area.criterion == "out" && !area.contains(pos.x,pos.y))){
+            switch (i) {
+                case 0:
+                    if (window.currentSong != window.grasslandsComp) {
+                        window.currentSong = window.grasslandsComp;
+                        window.MGS.playSong(window.grasslandsComp);
+                        console.log('Playing GRASSLANDS');
+                    }
+                    break;
+                case 1:
+                    if (window.currentSong != window.desertComp) {
+                        window.currentSong = window.desertComp;
+                        window.MGS.playSong(window.desertComp);
+                        console.log('Playing DESERT');
+                    }
+                    break;
+                case 2:
+                    if (window.currentSong != window.finalComp) {
+                        window.currentSong = window.finalComp;
+                        window.MGS.playSong(window.finalComp);
+                        console.log('Playing FINAL');
+                    }
+                    break;
+                case 3:
+                    if (window.currentSong != window.graveyardComp) {
+                        window.currentSong = window.graveyardComp;
+                        window.MGS.playSong(window.graveyardComp);
+                        console.log('Playing GRAVEYARD');
+                    }
+                    break;
+                default:
+                    if (window.currentSong != window.c) {
+                        window.MGS.playSong(window.c);
+                        window.currentSong = window.c;
+                        console.log('Playing DEFAULT');
+                    }
+            }
+        }
+    }
+}
 
 Game.revivePlayer = function(){ // Revive the player after clicking "revive"
     Client.sendRevive();

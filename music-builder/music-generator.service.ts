@@ -57,7 +57,7 @@ export class MusicGeneratorService {
 
   /** Starts playing the given song. Any currently playing song will be stopped. */
   public async playSong(song: Composition) {
-    console.log('Song: ' + song.getContext() + ' playing...');
+    console.log('Song: ' + JSON.stringify(song.getContext()) + ' playing...');
     console.log(song);
 
     const write = this.renderSong(song);
@@ -122,7 +122,7 @@ export class MusicGeneratorService {
     if (!this.playing) {
       return;
     }
-    console.log('Song: ' + this.playing.getContext() + ' stopped...');
+    console.log('Song: ' + JSON.stringify(this.playing.getContext()) + ' stopped...');
     Tone.Transport.stop();
     this.synths.forEach(s => {
       s.dispose();

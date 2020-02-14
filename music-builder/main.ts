@@ -13,13 +13,15 @@ Object.keys(gamedb).forEach(function(key) {
     }
 });
 
-
 const MGS = new MusicGeneratorService();
-let bitstr = "";
-for (let i = 0; i < 20; i++) {
-    bitstr += Math.random() > 0.5 ? "0" : "1";
+function newBitString(): BitString {
+    let bitstr = "";
+    for (let i = 0; i < 20; i++) {
+        bitstr += Math.random() > 0.5 ? "0" : "1";
+    }
+    const seed = new BitString(bitstr);
+    return seed;
 }
-const seed = new BitString(bitstr);
 
 // function convertRange(value: number, inHigh: number, inLow: number,
 //     outHigh: number, outLow: number): number {
@@ -44,26 +46,25 @@ for (let mon in gamedb[bossKey]) {
     mons.push(mon);
     if (mon === 'ogre' || mon === 'spectre' || mon === 'boss'|| mon === 'deathknight') {
         var arousal = 0.5, valence = 0;
-        for (let attrib in gamedb[mon]) {
+        for (let attrib in gamedb[bossKey][mon]) {
             if (attrib === 'speed') {
-                let speed = parseInt(gamedb[mon][attrib], 10); 
+                let speed = parseInt(gamedb[bossKey][mon][attrib], 10); 
                 arousal = (((speed - minSpeed) * (0.9 - 0.1)) / (maxSpeed - minSpeed)) + 0.1;
+                console.log('boss: ' + mon + ', speed: ' + speed);
             }
             if (attrib === 'life') {
-                let life = parseInt(gamedb[mon][attrib], 10); 
+                let life = parseInt(gamedb[bossKey][mon][attrib], 10); 
                 valence = (((life - minLife) * (0.9 + 0.9)) / (maxLife - minLife)) - 0.9;;
+                console.log('boss: ' + mon + ', life: ' + life);
             }
         }
-        // let arousal = convertRange(parseInt(mon[3], 10), maxSpeed, minSpeed, 0.9, 0.1); // speed
-        // let valence = convertRange(parseInt(mon[6], 10), maxLife, minLife, 0.9, -0.9);  // life
-        // let arousal = (parseInt(mon[3], 10) - minSpeed) / (maxSpeed - minSpeed);
-        // let valence = (parseInt(mon[6], 10) - minLife) / (maxLife - minLife);
+        console.log('BOSS: ' + mon + ':: arousal: ' + arousal + ', valence: ' + valence);
         bossSongs.unshift(
             new Composition(
                 arousal,
                 valence,
                 TimePeriod.Present,
-                seed
+                newBitString()
             )
         );
     }
@@ -75,7 +76,7 @@ const comp = new Composition(
     0.8,    //  0.1 --> 0.9
     0.8,   // -0.9 --> 0.9
     TimePeriod.Present,
-    seed
+    newBitString()
 );
 
 (window as any).GameDB = gamedb;
