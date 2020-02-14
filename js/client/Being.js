@@ -19,6 +19,8 @@ function Being(x,y,key){
     Phaser.Sprite.call(this, game, x,y,key); // Call to constructor of parent
     this.speed = 0;
     this.destination = null;
+    this.newX = 0;
+    this.newY = 0;
     game.add.existing(this);
 }
 Being.prototype = Object.create(Phaser.Sprite.prototype); // Declares the inheritance relationship
@@ -232,6 +234,10 @@ Being.prototype.finishMovement = function(finalOrientation,action){
     if(this instanceof Player) { // Check if the path ends on a teleport, and if so, teleport player
         var door = Game.detectElement(Game.doors,this.x,this.y);
         if(door) finalOrientation = this.teleport(door);
+        // else if (localStorage.getItem('ach0') && localStorage.getItem('ach5') && localStorage.getItem('ach6') && localStorage.getItem('ach7')) {
+        //     console.log('Teleporting to endScenario, Being.newX: ' + this.newX + ', Being.newY: ' + this.newY);
+        //     finalOrientation = this.megaTeleport(this.newX, this.newY);
+        // }
     }
     if(finalOrientation) this.orient(finalOrientation);
     this.tween = null;
