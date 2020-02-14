@@ -434,6 +434,14 @@ Game.updateBossMusic = function() {
                     }
             }
         }
+        else {
+            let area = new Phaser.Rectangle(0, 192, 83, 64); // Village area, see db.json>achievements>1
+            if (window.currentSong != window.c && area.contains(pos.x,pos.y)) {
+                window.MGS.playSong(window.c);
+                window.currentSong = window.c;
+                console.log('Playing DEFAULT');
+            }
+        }
     }
 }
 

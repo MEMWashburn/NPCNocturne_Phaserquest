@@ -347,7 +347,7 @@ GameServer.removePlayer = function(socketID){
 
 GameServer.revivePlayer = function(playerID){
     var player = GameServer.players[playerID];
-    console.log('revivePlayer x: ' + player.x + ', y: ' + player.y);
+    // console.log('revivePlayer x: ' + player.x + ', y: ' + player.y);
     // TODO: Use door teleports to send players to final boss
     if(player) player.revive();
 };
@@ -533,6 +533,10 @@ GameServer.respawnSomething = function(x,y,object,callback){
 
 GameServer.checkDoor = function(player){ // Check if the player ended up on a teleport
     var door = GameServer.doors.getFirst(player.x,player.y);
+    for (d in GameServer.doors) {
+        // console.log(d);
+    }
+    // console.log('Server teleport door, x: ' + player.x + ', y: ' + player.y + '  |  Door: ' + JSON.stringify(door));
     if(door) player.teleport(door);
 };
 

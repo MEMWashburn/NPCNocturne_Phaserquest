@@ -44,21 +44,28 @@ for (let mon in gamedb[bossKey]) {
     // Final Boss       = boss          = 2 (Lava Boss)
     // Graveyard Boss   = deathknight   = 3
     mons.push(mon);
+    // TODO: REVERSE significance of boss speed and life --> higher speed / life = lower arousal / valence
     if (mon === 'ogre' || mon === 'spectre' || mon === 'boss'|| mon === 'deathknight') {
         var arousal = 0.5, valence = 0;
         for (let attrib in gamedb[bossKey][mon]) {
             if (attrib === 'speed') {
-                let speed = parseInt(gamedb[bossKey][mon][attrib], 10); 
+                let speed = parseInt(gamedb[bossKey][mon][attrib], 10);
+                // speed = maxSpeed - speed + 10; // reversing significance
+                // console.log('NEW speed: ' + speed);
                 arousal = (((speed - minSpeed) * (0.9 - 0.1)) / (maxSpeed - minSpeed)) + 0.1;
-                console.log('boss: ' + mon + ', speed: ' + speed);
+                if (arousal < 0) { arousal = -arousal; }
+                console.log('npc: ' + mon + ', speed: ' + speed);
             }
             if (attrib === 'life') {
                 let life = parseInt(gamedb[bossKey][mon][attrib], 10); 
-                valence = (((life - minLife) * (0.9 + 0.9)) / (maxLife - minLife)) - 0.9;;
-                console.log('boss: ' + mon + ', life: ' + life);
+                life = maxLife - life + 10; // reversing significance
+                console.log('NEW life: ' + life);
+                valence = (((life - minLife) * (0.9 + 0.9)) / (maxLife - minLife)) - 0.9;
+                console.log('npc: ' + mon + ', life: ' + life);
             }
         }
-        console.log('BOSS: ' + mon + ':: arousal: ' + arousal + ', valence: ' + valence);
+        // if (mon === 'boss' || mon === 'deathknight') { arousal = Math.abs(arousal - 0.5); }
+        console.log('NPC: ' + mon + ':: arousal: ' + arousal + ', valence: ' + valence);
         bossSongs.unshift(
             new Composition(
                 arousal,

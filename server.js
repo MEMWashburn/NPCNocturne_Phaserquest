@@ -126,21 +126,21 @@ io.on('connection',function(socket){
         console.log("Reviving player...");
         let playerID = gs.getPlayerID(socket.id);
         // New
-        if (gs.megaAchievements) {
-            console.log(gs.megaAchievements);
-            if (gs.megaAchievements.ach0 && gs.megaAchievements.ach5 && gs.megaAchievements.ach6 && gs.megaAchievements.ach7) {
-                var player = gs.players[playerID];
-                console.log(player.x + ' ' + player.y);
-                var endScenario = gs.objects.endScenario;
-                var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
-                var x = randomInt(endArea.x, (endArea.x+endArea.width));
-                var y = randomInt(endArea.y, (endArea.y+endArea.height));
-                gs.players[playerID].x = Math.floor(x/gs.map.tilewidth);
-                gs.players[playerID].y = Math.floor(y/gs.map.tileheight);
-                console.log(gs.players[playerID].x + ' ' + gs.players[playerID].y);
-                // TODO: Write new function to change position of player (in GameServer?)
-            }
-        }
+        // if (gs.megaAchievements) {
+        //     console.log(gs.megaAchievements);
+        //     if (gs.megaAchievements.ach0 && gs.megaAchievements.ach5 && gs.megaAchievements.ach6 && gs.megaAchievements.ach7) {
+        //         var player = gs.players[playerID];
+        //         console.log(player.x + ' ' + player.y);
+        //         var endScenario = gs.objects.endScenario;
+        //         var endArea = endScenario[Math.floor(Math.random()*endScenario.length)];
+        //         var x = randomInt(endArea.x, (endArea.x+endArea.width));
+        //         var y = randomInt(endArea.y, (endArea.y+endArea.height));
+        //         gs.players[playerID].x = Math.floor(x/gs.map.tilewidth);
+        //         gs.players[playerID].y = Math.floor(y/gs.map.tileheight);
+        //         console.log(gs.players[playerID].x + ' ' + gs.players[playerID].y);
+        //         // TODO: Write new function to change position of player (in GameServer?)
+        //     }
+        // }
         // Original code, semi-modified
         gs.revivePlayer(playerID);
     });
