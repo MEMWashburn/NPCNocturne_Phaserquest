@@ -397,6 +397,7 @@ Game.updateBossMusic = function() {
     for(var i = Game.bossLocations.length-1; i >= 0 ; i--) {
         var area = Game.bossLocations[i];
         if((area.criterion == "in" && area.contains(pos.x,pos.y)) || (area.criterion == "out" && !area.contains(pos.x,pos.y))){
+            console.log(pos.x + ' ' + pos.y);
             switch (i) {
                 case 0:
                     if (window.currentSong != window.grasslandsComp) {

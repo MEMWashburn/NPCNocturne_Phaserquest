@@ -233,7 +233,11 @@ Being.prototype.finishMovement = function(finalOrientation,action){
     }
     if(this instanceof Player) { // Check if the path ends on a teleport, and if so, teleport player
         var door = Game.detectElement(Game.doors,this.x,this.y);
-        if(door) finalOrientation = this.teleport(door);
+        if(door) {
+            finalOrientation = this.teleport(door);
+            console.log('Updating boss music from Being.js');
+            Game.updateBossMusic();
+        }
         // else if (localStorage.getItem('ach0') && localStorage.getItem('ach5') && localStorage.getItem('ach6') && localStorage.getItem('ach7')) {
         //     console.log('Teleporting to endScenario, Being.newX: ' + this.newX + ', Being.newY: ' + this.newY);
         //     finalOrientation = this.megaTeleport(this.newX, this.newY);
