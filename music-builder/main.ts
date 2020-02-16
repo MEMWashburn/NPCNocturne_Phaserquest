@@ -1,6 +1,7 @@
 import { MusicGeneratorService } from "./music-generator.service";
 import { BitString } from "./BitString";
 import { Composition, TimePeriod } from "./composition";
+import { GMInstruments } from './musicKB';
 
 var gamedb = require('../assets/json/db.json');
 
@@ -85,6 +86,42 @@ const comp = new Composition(
     TimePeriod.Present,
     newBitString()
 );
+
+// TODO: Create mapping for instrument types to NPC friendliness
+
+comp.instruments = {
+    '1': GMInstruments.byCategory.strings.violin.number,
+    '2': GMInstruments.byCategory.piano.acoustic_grand_piano.number,
+    '3': GMInstruments.byCategory.guitar.acoustic_guitar_nylon.number,
+};
+
+// Grasslands Boss X
+bossSongs[0].instruments = {
+    '1': GMInstruments.byCategory.piano.acoustic_grand_piano.number,
+    '2': GMInstruments.byCategory.guitar.acoustic_guitar_nylon.number,
+    '3': GMInstruments.byCategory.reed.oboe.number,
+};
+
+// Desert Boss 
+bossSongs[1].instruments = {
+    '1': GMInstruments.byCategory.ethnic.koto.number,
+    '2': GMInstruments.byCategory.ethnic.shamisen.number,
+    '3': GMInstruments.byCategory.ethnic.kalimba.number,
+};
+
+// Final Boss X
+bossSongs[2].instruments = {
+    '1': GMInstruments.byCategory.strings.viola.number,
+    '2': GMInstruments.byCategory.ensemble.synth_choir.number,
+    '3': GMInstruments.byCategory.strings.violin.number,
+};
+
+// Graveyard Boss X
+bossSongs[3].instruments = {
+    '1': GMInstruments.byCategory.strings.violin.number,
+    '2': GMInstruments.byCategory.pipe.ocarina.number,
+    '3': GMInstruments.byCategory.chromatic_percussion.music_box.number,
+};
 
 (window as any).GameDB = gamedb;
 (window as any).FoundMons = mons;

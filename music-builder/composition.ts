@@ -84,7 +84,7 @@ export class Composition {
   private voices: { [key: string]: VConstructor } = {};
 
   /** Instruments tied to each of the voices in composition */
-  private intsruments: { [key: string]: any } = {};
+  public instruments: { [key: string]: any } = {};
 
   /** Song Structure holds the overarching structure of the composition. It can be used to trigger many things
    *  Example structure: 'AABA'
@@ -138,7 +138,7 @@ export class Composition {
     this.timeSig = this.decideTimeSig();
     this.tonic = this.decideTonic();
     this.voices = this.decideVoices();
-    this.intsruments = this.decideIntruments();
+    this.instruments = this.decideInstruments();
     this.songForm = this.decideSongForm();
 
     this.generateSectionData();
@@ -213,7 +213,7 @@ export class Composition {
     };
   }
 
-  private decideIntruments(): { [key: string]: any } {
+  private decideInstruments(): { [key: string]: any } {
     return {
       '1': GMInstruments.byCategory.strings.violin.number,
       '2': GMInstruments.byCategory.strings.cello.number,
@@ -399,7 +399,7 @@ export class Composition {
       const track = new Track();
       track.addTrackName('Channel ' + channel);
       track.addEvent(
-        new ProgramChangeEvent({ instrument: this.intsruments[channel] }),
+        new ProgramChangeEvent({ instrument: this.instruments[channel] }),
       );
       channels[channel] = track;
     }
