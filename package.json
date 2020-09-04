@@ -25,7 +25,7 @@
   "dependencies": {
     "clone": "^2.1.0",
     "express": "^4.14.0",
-    "mongodb": "^2.2.16",
+    "mongodb": "^3.1.13",
     "optimist": "^0.6.1",
     "pathfinding": "^0.4.18",
     "quickselect": "^1.0.0",
