@@ -31,7 +31,7 @@
     "quickselect": "^1.0.0",
     "random-weighted-choice": "^0.1.3",
     "socket.io": "^1.7.2",
-    "@angular/core": "~7.1.0",
+    "@angular/core": "~11.0.5",
     "@tonejs/midi": "^1.2.3",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
