@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Jerenaux/phaserquest#readme",
   "dependencies": {
     "clone": "^2.1.0",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "mongodb": "^2.2.16",
     "optimist": "^0.6.1",
     "pathfinding": "^0.4.18",
